@@ -33,7 +33,7 @@ pipeline{
 			}
 		}
 		
-		stage("docker push image")
+		stage("deploy")
 		{
 			steps{
 					script{
