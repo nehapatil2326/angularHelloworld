@@ -12,8 +12,8 @@ pipeline{
 		stage("docker build image")
 		{
 			steps{
-					withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: '', usernameVariable: '')]) {
-						sh "docker build ."
+					dir("${env.WORKSPACE}") {
+					docker.build('bvcuser/angularHelloworld')
 					}
 				}
 		}
