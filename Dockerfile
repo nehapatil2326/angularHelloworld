@@ -1,7 +1,7 @@
 FROM centos as web
 
-RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
-RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
+#RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
+#RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
 
 
 RUN yum update -y
@@ -19,7 +19,6 @@ WORKDIR /app
 COPY . /app/
 RUN npm install -g @angular/cli@9.1.13
 RUN npm install
-#RUN npm install onesignal-ngx
 
 # Expose the port the app runs in
 EXPOSE 4200
