@@ -13,7 +13,7 @@ pipeline{
 		{
 			steps{
 					dir("${env.WORKSPACE}") {
-					docker.build('bvcuser/angularHelloworld')
+					docker.build('nehaghatage2626/AngularHelloworld')
 					}
 				}
 		}
