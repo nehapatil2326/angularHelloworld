@@ -15,7 +15,7 @@ pipeline{
 					script{
 					
 					dir("${env.WORKSPACE}") {
-					docker.build('nehaghatage2626/AngularHelloworld')
+					docker.build('nehaghatage2626/angularhelloworld')
 					
 					}
 					}
