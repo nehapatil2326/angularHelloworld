@@ -7,8 +7,8 @@ pipeline{
 				checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/nehapatil2326/angularHelloworld']]])
 			}
 		}
-	}
-	stages {
+	
+
 		stage("docker build image")
 		{
 			steps{
@@ -17,5 +17,5 @@ pipeline{
 					}
 				}
 		}
-	}
+}
 }
