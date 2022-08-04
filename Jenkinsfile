@@ -13,7 +13,7 @@ pipeline{
 					script{
 					
 					dir("${env.WORKSPACE}") {
-					docker.build('nehaghatage2626/angularhelloworld:${BUILD_NUMBER}')
+					docker.build('nehaghatage2626/angularhelloworld')
 					
 					}
 				}
@@ -24,7 +24,10 @@ pipeline{
 		{
 			steps{
 					script{
-					
+					withDockerRegistry(credentialsId: 'dockerhub') {
+						docker.image('nehaghatage2626/angularhelloworld').push("latest")
+						docker.image('nehaghatage2626/angularhelloworld').push("${BUILD_NUMBER}")
+					}
 					
 				}
 			}
