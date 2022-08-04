@@ -33,7 +33,7 @@ pipeline{
 			}
 		}
 		
-		stage("deploy")
+		stage("deploy DEV")
 		{
 			steps{
 					script{
@@ -51,7 +51,47 @@ pipeline{
 					}
 					
 				}
-			}
 		}
+		
+		stage("deploy QA")
+		{
+			steps{
+					script{
+					sshPublisher(publishers: [sshPublisherDesc(configName: 'QA', 
+								transfers: [sshTransfer(cleanRemote: false, excludes: '', 
+								execCommand: './deploy.sh', execTimeout: 120000, 
+								flatten: false, makeEmptyDirs: false, 
+								noDefaultExcludes: false, 
+								patternSeparator: '[, ]+', 
+								remoteDirectory: '', remoteDirectorySDF: false, 
+								removePrefix: '', sourceFiles: '')], 
+								usePromotionTimestamp: false, 
+								useWorkspaceInPromotion: false, verbose: false)])
+					
+					}
+					
+				}
+		}
+		
+		stage("deploy PROD")
+		{
+			steps{
+					script{
+					sshPublisher(publishers: [sshPublisherDesc(configName: 'PROD', 
+								transfers: [sshTransfer(cleanRemote: false, excludes: '', 
+								execCommand: './deploy.sh', execTimeout: 120000, 
+								flatten: false, makeEmptyDirs: false, 
+								noDefaultExcludes: false, 
+								patternSeparator: '[, ]+', 
+								remoteDirectory: '', remoteDirectorySDF: false, 
+								removePrefix: '', sourceFiles: '')], 
+								usePromotionTimestamp: false, 
+								useWorkspaceInPromotion: false, verbose: false)])
+					
+					}
+					
+				}
+		}
+	}
 		
 }
