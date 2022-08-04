@@ -1,11 +1,9 @@
 pipeline{ 
 	agent any
 	stages {
-		stage("checkout")
+		stage("Start")
 		{
-			steps{
-				checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/nehapatil2326/angularHelloworld']]])
-			}
+			sh 'echo "Started"'
 		}
 		stage("docker build image")
 		{
@@ -19,7 +17,7 @@ pipeline{
 				}
 			}
 		}
-		
+
 		stage("docker push image")
 		{
 			steps{
@@ -32,5 +30,27 @@ pipeline{
 				}
 			}
 		}
+		
+		stage("docker push image")
+		{
+			steps{
+					script{
+					sshPublisher(publishers: [sshPublisherDesc(configName: 'dev-server', 
+								transfers: [sshTransfer(cleanRemote: false, excludes: '', 
+								execCommand: './deploy.sh', execTimeout: 120000, 
+								flatten: false, makeEmptyDirs: false, 
+								noDefaultExcludes: false, 
+								patternSeparator: '[, ]+', 
+								remoteDirectory: '', remoteDirectorySDF: false, 
+								removePrefix: '', sourceFiles: '')], 
+								usePromotionTimestamp: false, 
+								useWorkspaceInPromotion: false, verbose: false)])
+					
+					}
+					
+				}
+			}
+		}
+		
 }
 }
